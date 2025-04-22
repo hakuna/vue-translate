@@ -147,22 +147,23 @@ fr:
 
 ### Basic Translation
 
+#### Option 1: Using the useTranslate composable in script setup
+
 ```vue
-<!-- Option 1: Using the useTranslate composable in script setup -->
 <script setup>
 import { useTranslate } from "vue-translate"
 const { t } = useTranslate()
 </script>
 
 <template>
-  <!-- Using function from composable -->
   <p>{{ t("app_name") }}</p>     <!-- Global translation (from messages in createVueTranslate) -->
   <p>{{ t(".local.key") }}</p>   <!-- Component-local translation (from <i18n> block, with leading dot) -->
 </template>
 ```
 
+#### Option 2: Using global helpers (available without importing or using the composable)
+
 ```vue
-<!-- Option 2: Using global helpers (available without importing or using the composable) -->
 <template>
   <p>{{ $t("app_name") }}</p>     <!-- Global translation using $t helper -->
   <p>{{ $t(".local.key") }}</p>   <!-- Component-local translation using $t helper -->
@@ -203,8 +204,9 @@ en:
 
 ### Formatting
 
+#### Option 1: Using the useTranslate composable
+
 ```vue
-<!-- Option 1: Using the useTranslate composable -->
 <script setup>
 import { useTranslate } from "vue-translate"
 const { l } = useTranslate()
@@ -220,8 +222,9 @@ const price = 42.99
 </template>
 ```
 
+#### Option 2: Using global $l helper
+
 ```vue
-<!-- Option 2: Using global $l helper -->
 <script setup>
 const date = new Date()
 const price = 42.99
