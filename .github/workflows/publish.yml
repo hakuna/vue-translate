@@ -15,13 +15,15 @@ jobs:
           - name: unplugin-vue-translate
             npm_name: '@hakuna/unplugin-vue-translate'
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+          cache-dependency-path: packages/${{ matrix.package.name }}/package-lock.json
 
       - name: Install, build and publish ${{ matrix.package.npm_name }}
         run: |
