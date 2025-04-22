@@ -148,12 +148,25 @@ fr:
 ### Basic Translation
 
 ```vue
-<!-- In setup script -->
+<!-- Option 1: Using the useTranslate composable in script setup -->
+<script setup>
+import { useTranslate } from "vue-translate"
 const { t } = useTranslate()
+</script>
 
-<!-- In template -->
-<p>{{ t("app_name") }}</p>     <!-- Global translation (from messages in createVueTranslate) -->
-<p>{{ t(".local.key") }}</p>   <!-- Component-local translation (from <i18n> block, with leading dot) -->
+<template>
+  <!-- Using function from composable -->
+  <p>{{ t("app_name") }}</p>     <!-- Global translation (from messages in createVueTranslate) -->
+  <p>{{ t(".local.key") }}</p>   <!-- Component-local translation (from <i18n> block, with leading dot) -->
+</template>
+```
+
+```vue
+<!-- Option 2: Using global helpers (available without importing or using the composable) -->
+<template>
+  <p>{{ $t("app_name") }}</p>     <!-- Global translation using $t helper -->
+  <p>{{ $t(".local.key") }}</p>   <!-- Component-local translation using $t helper -->
+</template>
 ```
 
 ### Variable Substitution
@@ -191,16 +204,35 @@ en:
 ### Formatting
 
 ```vue
-<!-- In setup script -->
+<!-- Option 1: Using the useTranslate composable -->
+<script setup>
+import { useTranslate } from "vue-translate"
 const { l } = useTranslate()
 const date = new Date()
 const price = 42.99
+</script>
 
-<!-- In template -->
-<p>{{ l(date) }}</p>                <!-- Default date format -->
-<p>{{ l(date, 'short') }}</p>       <!-- Named date format -->
-<p>{{ l(price) }}</p>               <!-- Default number format -->
-<p>{{ l(price, 'currency') }}</p>   <!-- Currency format -->
+<template>
+  <p>{{ l(date) }}</p>                <!-- Default date format -->
+  <p>{{ l(date, 'short') }}</p>       <!-- Named date format -->
+  <p>{{ l(price) }}</p>               <!-- Default number format -->
+  <p>{{ l(price, 'currency') }}</p>   <!-- Currency format -->
+</template>
+```
+
+```vue
+<!-- Option 2: Using global $l helper -->
+<script setup>
+const date = new Date()
+const price = 42.99
+</script>
+
+<template>
+  <p>{{ $l(date) }}</p>                <!-- Default date format -->
+  <p>{{ $l(date, 'short') }}</p>       <!-- Named date format -->
+  <p>{{ $l(price) }}</p>               <!-- Default number format -->
+  <p>{{ $l(price, 'currency') }}</p>   <!-- Currency format -->
+</template>
 ```
 
 ### Switching Locales
