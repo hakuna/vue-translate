@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "strict": true,
+    "jsx": "preserve",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "lib": ["ESNext", "DOM"],
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "vue-translate": ["../packages/vue-translate/src"],
+      "vue-translate/*": ["../packages/vue-translate/src/*"],
+      "unplugin-vue-translate": ["../packages/unplugin-vue-translate/src"],
+      "unplugin-vue-translate/*": ["../packages/unplugin-vue-translate/src/*"],
+      "unplugin-vue-translate/vite": ["../packages/unplugin-vue-translate/src/vite"]
+    },
+    "types": ["vite/client"]
+  },
+  "include": ["*.ts", "*.d.ts", "*.vue"]
+}

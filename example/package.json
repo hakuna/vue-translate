@@ -1,0 +1,23 @@
+{
+  "name": "vue-translate-example",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "dev:source": "vite --force"
+  },
+  "dependencies": {
+    "unplugin-vue-translate": "file:../packages/unplugin-vue-translate",
+    "vue": "^3.5.13",
+    "vue-translate": "file:../packages/vue-translate"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@vitejs/plugin-vue": "^5.2.3",
+    "typescript": "^5.1.3",
+    "vite": "^6.3.1"
+  }
+}
