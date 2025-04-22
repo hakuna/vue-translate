@@ -125,8 +125,6 @@ describe("Vite SFC", () => {
       "/fixtures/composition-api.vue"
     )
 
-    console.log(code)
-
     expect(code).toBeDefined()
     expect(code).toContain("vueTranslate")
     expect(code).toContain('"title":"Composition API Component"')
