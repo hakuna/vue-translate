@@ -9,11 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        package: 
+        package:
           - name: vue-translate
-            npm_name: '@hakuna/vue-translate'
+            npm_name: '@hakunajs/vue-translate'
           - name: unplugin-vue-translate
-            npm_name: '@hakuna/unplugin-vue-translate'
+            npm_name: '@hakunajs/unplugin-vue-translate'
     steps:
       - uses: actions/checkout@v4
 

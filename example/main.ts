@@ -1,5 +1,5 @@
 import { createApp } from "vue"
-import { createVueTranslate } from "@hakuna/vue-translate"
+import { createVueTranslate } from "@hakunajs/vue-translate"
 import App from "./App.vue"
 
 const vueTranslate = createVueTranslate({

@@ -14,11 +14,11 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@hakuna/vue-translate": ["../packages/vue-translate/src"],
-      "@hakuna/vue-translate/*": ["../packages/vue-translate/src/*"],
-      "@hakuna/unplugin-vue-translate": ["../packages/unplugin-vue-translate/src"],
-      "@hakuna/unplugin-vue-translate/*": ["../packages/unplugin-vue-translate/src/*"],
-      "@hakuna/unplugin-vue-translate/vite": ["../packages/unplugin-vue-translate/src/vite"]
+      "@hakunajs/vue-translate": ["../packages/vue-translate/src"],
+      "@hakunajs/vue-translate/*": ["../packages/vue-translate/src/*"],
+      "@hakunajs/unplugin-vue-translate": ["../packages/unplugin-vue-translate/src"],
+      "@hakunajs/unplugin-vue-translate/*": ["../packages/unplugin-vue-translate/src/*"],
+      "@hakunajs/unplugin-vue-translate/vite": ["../packages/unplugin-vue-translate/src/vite"]
     },
     "types": ["vite/client"]
   },

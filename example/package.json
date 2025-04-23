@@ -10,8 +10,8 @@
     "dev:source": "vite --force"
   },
   "dependencies": {
-    "@hakuna/unplugin-vue-translate": "file:../packages/unplugin-vue-translate",
-    "@hakuna/vue-translate": "file:../packages/vue-translate",
+    "@hakunajs/unplugin-vue-translate": "file:../packages/unplugin-vue-translate",
+    "@hakunajs/vue-translate": "file:../packages/vue-translate",
     "vue": "^3.5.13"
   },
   "devDependencies": {
