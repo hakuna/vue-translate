@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useTranslate } from "vue-translate"
+import { useTranslate } from "@hakuna/vue-translate"
 import CodeBlock from "./CodeBlock.vue"
 
 const { t, locale } = useTranslate()

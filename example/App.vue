@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useTranslate } from "vue-translate"
+import { useTranslate } from "@hakuna/vue-translate"
 import TranslationComponent from "./TranslationComponent.vue"
 import FormattingComponent from "./FormattingComponent.vue"
 
@@ -48,7 +48,7 @@ function changeLocale(newLocale: string) {
     <footer>
       <p>{{ t(".footer.available_locales") }}: {{ availableLocales.join(", ") }}</p>
       <p class="github-link">
-        <a href="https://github.com/username/vue-translate" target="_blank">
+        <a href="https://github.com/@hakuna/vue-translate" target="_blank">
           {{ t(".footer.github") }}
         </a>
       </p>

@@ -20,10 +20,10 @@ A simple internationalization (i18n) solution for Vue 3 that supports single-fil
 
 ```bash
 # Install the core package for runtime translation functionality
-npm install vue-translate
+npm install @hakuna/vue-translate
 
 # Install the SFC unplugin as a dev dependency (for <i18n> block support)
-npm install --save-dev unplugin-vue-translate
+npm install --save-dev @hakuna/unplugin-vue-translate
 ```
 
 ## Quick Start
@@ -32,7 +32,7 @@ npm install --save-dev unplugin-vue-translate
 
 ```typescript
 import { createApp } from "vue"
-import { createVueTranslate } from "vue-translate"
+import { createVueTranslate } from "@hakuna/vue-translate"
 import App from "./App.vue"
 
 const vueTranslate = createVueTranslate({
@@ -66,7 +66,7 @@ app.mount("#app")
 ```typescript
 import { defineConfig } from "vite"
 import vue from "@vitejs/plugin-vue"
-import VueTranslate from "unplugin-vue-translate/vite"
+import VueTranslate from "@hakuna/unplugin-vue-translate/vite"
 
 export default defineConfig({
   plugins: [
@@ -90,7 +90,7 @@ export default defineConfig({
 </template>
 
 <script setup>
-import { useTranslate } from "vue-translate"
+import { useTranslate } from "@hakuna/vue-translate"
 
 const { t, locale, setLocale } = useTranslate()
 </script>
@@ -151,7 +151,7 @@ fr:
 
 ```vue
 <script setup>
-import { useTranslate } from "vue-translate"
+import { useTranslate } from "@hakuna/vue-translate"
 const { t } = useTranslate()
 </script>
 
@@ -208,7 +208,7 @@ en:
 
 ```vue
 <script setup>
-import { useTranslate } from "vue-translate"
+import { useTranslate } from "@hakuna/vue-translate"
 const { l } = useTranslate()
 const date = new Date()
 const price = 42.99

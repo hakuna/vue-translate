@@ -1,5 +1,5 @@
 {
-  "name": "vue-translate",
+  "name": "@hakuna/vue-translate",
   "version": "0.1.0",
   "description": "Internationalization plugin for Vue.js",
   "keywords": [
