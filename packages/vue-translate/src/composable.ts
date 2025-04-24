@@ -1,5 +1,6 @@
-import { getState, translateKey, localizeValue, createSetLocale } from "./context"
 import type { Ref } from "vue"
+import { getState, translateKey, localizeValue, createSetLocale } from "./context"
+import type { TranslationResult, LocalizationResult } from "./types"
 
 interface TranslateResult {
   /**
@@ -9,7 +10,7 @@ interface TranslateResult {
    * @param variables Optional variables to substitute in the translation
    * @returns The translated string with variables substituted
    */
-  t: (key: string, variables?: Record<string, any>) => string
+  t: (key: string, variables?: Record<string, any>) => TranslationResult
 
   /**
    * Localization function that formats dates and numbers according to the current locale
@@ -18,7 +19,7 @@ interface TranslateResult {
    * @param format Optional predefined format name or formatting options
    * @returns The formatted string
    */
-  l: (value: Date | number, format?: string | Record<string, any>) => string
+  l: (value: Date | number, format?: string | Record<string, any>) => LocalizationResult
 
   /**
    * Current locale (reactive)
@@ -45,12 +46,12 @@ export function useTranslate(): TranslateResult {
   const { state, instance } = getState()
 
   // Translation function that uses the context helpers
-  const t = (key: string, variables?: Record<string, any>): string => {
+  const t = (key: string, variables?: Record<string, any>): TranslationResult => {
     return translateKey(key, variables, instance, state)
   }
 
   // Localization function that uses the context helpers
-  const l = (value: Date | number, format?: string | Record<string, any>): string => {
+  const l = (value: Date | number, format?: string | Record<string, any>): LocalizationResult => {
     return localizeValue(value, format, state)
   }
 

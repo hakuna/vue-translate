@@ -23,7 +23,6 @@ defineProps({
   background-color: #282c34;
   border-radius: 6px;
   overflow: auto;
-  max-height: 200px;
 }
 
 pre {

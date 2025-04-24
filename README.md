@@ -13,6 +13,7 @@ A simple internationalization (i18n) solution for Vue 3 that supports single-fil
 - 📅 **Date formatting** with locale-specific formats
 - 🧩 **Variable substitution** in translations (`%{variable}`)
 - 🔄 **Pluralization** support with count-based variants
+- 📋 **Array translations** for direct iteration in templates
 - 🌈 **Locale switching** with automatic UI updates
 - ⚙️ **Vite integration** with automatic SFC `<i18n>` block processing
 
@@ -189,18 +190,83 @@ en:
 # In i18n block
 en:
   items:
-    count:
-      zero: "No items"
-      one: "One item"
-      other: "%{count} items"
+    zero: "No items"
+    one: "One item"
+    other: "%{count} items"
 ```
 
 ```vue
 <!-- In template -->
-<p>{{ t(".items.count", { count: 0 }) }}</p>  <!-- Outputs: No items -->
-<p>{{ t(".items.count", { count: 1 }) }}</p>  <!-- Outputs: One item -->
-<p>{{ t(".items.count", { count: 5 }) }}</p>  <!-- Outputs: 5 items -->
+<p>{{ t(".items", { count: 0 }) }}</p>  <!-- Outputs: No items -->
+<p>{{ t(".items", { count: 1 }) }}</p>  <!-- Outputs: One item -->
+<p>{{ t(".items", { count: 5 }) }}</p>  <!-- Outputs: 5 items -->
 ```
+
+### Array Translations
+
+Array-like translations are returned as-is when accessed without a count parameter, allowing you to iterate through them directly in your templates.
+
+```vue
+<script setup lang="ts">
+import { useTranslate } from "@hakunajs/vue-translate"
+import type { TranslationResult } from "@hakunajs/vue-translate"
+
+// Define interfaces for your translation object structures
+interface Fruit {
+  name: string
+  color: string
+}
+
+const { t } = useTranslate()
+
+// For script usage with proper typing using type assertions
+const colors = t('.colors') as string[]
+const fruits = t('.fruits') as Fruit[]
+</script>
+
+<template>
+  <!-- Iterate through simple array -->
+  <ul>
+    <li v-for="color in t('.colors') as string[]" :key="color">{{ color }}</li>
+  </ul>
+
+  <!-- Iterate through array of objects with type assertion -->
+  <div v-for="fruit in t('.fruits') as Fruit[]" :key="fruit.name">
+    {{ fruit.name }} - {{ fruit.color }}
+  </div>
+</template>
+
+<i18n lang="yaml">
+en:
+  # Simple array of strings
+  colors:
+    - Red
+    - Green
+    - Blue
+    - Yellow
+    - Purple
+
+  # Array of objects with properties
+  fruits:
+    - name: Apple
+      color: Red
+    - name: Banana
+      color: Yellow
+    - name: Grape
+      color: Purple
+    - name: Orange
+      color: Orange
+    - name: Blueberry
+      color: Blue
+</i18n>
+```
+
+This feature is particularly useful for:
+- Dropdown/select options lists
+- Navigation menus
+- Any UI that requires iterating through lists of items
+- Form validation messages
+- Dynamic content like FAQs or feature lists
 
 ### Formatting
 

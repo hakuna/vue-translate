@@ -22,6 +22,33 @@ describe("context", () => {
     vi.resetAllMocks()
   })
 
+  describe("translateKey", () => {
+    it("returns object as is when given array-like translation without count parameter", () => {
+      // Mock getState to return our test state
+      const mockTranslationObject = ['value 1', 'value 2']
+      const mockState = {
+        locale: { value: 'en' },
+        messages: {
+          en: {
+            array_key: mockTranslationObject
+          }
+        },
+        showMissingTranslationWarnings: true
+      }
+      
+      vi.mocked(getCurrentInstance).mockReturnValue({} as any)
+      vi.mocked(inject).mockImplementation((key) => {
+        return key === VueTranslateSymbol ? mockState : null
+      })
+
+      // Call the function with no variables (so no count parameter)
+      const result = translateKey('array_key')
+      
+      // Result should be the original array object
+      expect(result).toBe(mockTranslationObject)
+    })
+  })
+
   describe("getState", () => {
     it("throws error when not called in component", () => {
       vi.mocked(getCurrentInstance).mockReturnValue(null)

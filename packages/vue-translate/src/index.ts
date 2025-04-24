@@ -7,6 +7,8 @@ import type {
   VueTranslateState,
   LocaleFormats,
   LocaleWithFormats,
+  TranslationResult,
+  LocalizationResult,
 } from "./types"
 import "./types/custom_properties"
 
@@ -32,12 +34,12 @@ export function createVueTranslate(options: VueTranslateOptions): VueTranslateIn
   // Return the instance with enhanced functionality
   return {
     // Format a key with variables
-    translate: (key: string, variables?: Record<string, any>): string => {
+    translate: (key: string, variables?: Record<string, any>): TranslationResult => {
       return translateKey(key, variables, null, state)
     },
 
     // Format a date/number with options
-    localize: (value: Date | number, format?: string | Record<string, any>): string => {
+    localize: (value: Date | number, format?: string | Record<string, any>): LocalizationResult => {
       return localizeValue(value, format, state)
     },
 

@@ -2,6 +2,11 @@
 import { useTranslate } from "@hakunajs/vue-translate"
 import CodeBlock from "./CodeBlock.vue"
 
+interface Fruit {
+  name: string
+  color: string
+}
+
 const { t, locale } = useTranslate()
 </script>
 
@@ -89,6 +94,31 @@ const { t, locale } = useTranslate()
         {{ t(".global_message") }}: <span class="highlight">{{ t("app_name") }}</span>
       </p>
     </div>
+
+    <div class="example-section">
+      <h3>{{ t(".sections.array_translations") }}</h3>
+      <CodeBlock
+        :code="`// In YAML\ncolors:\n  - Red\n  - Green\n  - Blue\n\nfruits:\n  - name: Apple\n    color: Red\n  - name: Banana\n    color: Yellow\n\n// In template\n// Access the full array without count parameter\n<ul>\n  <li v-for=&quot;color in t('.colors')\&quot; :key=&quot;color&quot;>{{ color }}</li>\n</ul>\n\n// Access complex array objects\n<div v-for=&quot;fruit in t('.fruits')&quot; :key=&quot;fruit.name&quot;>\n  {{ fruit.name }} - {{ fruit.color }}\n</div>`"
+      />
+      <div class="example-row">
+        <div class="example-col">
+          <p class="method-name">Simple array:</p>
+          <div class="result">
+            <ul>
+              <li v-for="color in t('.colors')" :key="color">{{ color }}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="example-col">
+          <p class="method-name">Complex array:</p>
+          <div class="result">
+            <div v-for="fruit in t('.fruits') as Fruit[]" :key="fruit.name" class="fruit-item">
+              {{ fruit.name }} - {{ fruit.color }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -109,6 +139,18 @@ en:
     pluralization: Pluralization
     nesting: Nested Keys
     global_access: Global Access
+    array_translations: Array Translations
+  colors:
+    - Red
+    - Green
+    - Blue
+  fruits:
+    - name: Apple
+      color: Red
+    - name: Banana
+      color: Yellow
+    - name: Grape
+      color: Purple
   missing:
     local: Missing local key
     global: Missing global key
@@ -134,6 +176,18 @@ de:
     pluralization: Pluralisierung
     nesting: Verschachtelte Schlüssel
     global_access: Globaler Zugriff
+    array_translations: Array-Übersetzungen
+  colors:
+    - Rot
+    - Grün
+    - Blau
+  fruits:
+    - name: Apfel
+      color: Rot
+    - name: Banane
+      color: Gelb
+    - name: Traube
+      color: Lila
   missing:
     local: Fehlender lokaler Schlüssel
     global: Fehlender globaler Schlüssel
@@ -159,6 +213,18 @@ de:
     pluralization: Pluralisierung
     nesting: Verschachtelte Schlüssel
     global_access: Globaler Zugriff
+    array_translations: Array-Übersetzunge
+  colors:
+    - Rot
+    - Grüen
+    - Blau
+  fruits:
+    - name: Öpfel
+      color: Rot
+    - name: Banane
+      color: Gälb
+    - name: Trube
+      color: Violett
   missing:
     local: Fehlender lokaler Schlüssel
     global: Fehlender globaler Schlüssel
@@ -215,6 +281,10 @@ de:
   border-radius: 4px;
   border-left: 3px solid #0277bd;
   font-size: 13px;
+}
+
+.fruit-item {
+  margin-bottom: 5px;
 }
 
 h2 {

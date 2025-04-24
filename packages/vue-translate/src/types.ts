@@ -134,7 +134,7 @@ export interface VueTranslateInstance {
    * @param variables Optional variables to substitute
    * @returns Translated string
    */
-  translate: (key: string, variables?: Record<string, any>) => string
+  translate: (key: string, variables?: Record<string, any>) => TranslationResult
 
   /**
    * Localize (format) a date or number
@@ -143,5 +143,15 @@ export interface VueTranslateInstance {
    * @param format Optional format name or options
    * @returns Formatted string
    */
-  localize: (value: Date | number, format?: string | Record<string, any>) => string
+  localize: (value: Date | number, format?: string | Record<string, any>) => LocalizationResult
 }
+
+/**
+ * Translation result
+ */
+export type TranslationResult = string | object
+
+/**
+ * Localization result
+ */
+export type LocalizationResult = string

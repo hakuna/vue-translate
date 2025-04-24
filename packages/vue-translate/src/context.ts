@@ -5,7 +5,12 @@ import { formatDate } from "./util/formatDate"
 import { formatNumber } from "./util/formatNumber"
 import { getPluralForm } from "./util/pluralForms"
 import { substituteVariables } from "./util/substituteVariables"
-import type { VueTranslateState, LocaleFormats } from "./types"
+import type {
+  VueTranslateState,
+  LocaleFormats,
+  TranslationResult,
+  LocalizationResult,
+} from "./types"
 
 /**
  * Gets state from the current component instance
@@ -102,7 +107,7 @@ export function translateKey(
   variables?: Record<string, any>,
   component?: any,
   state?: VueTranslateState
-): string {
+): TranslationResult {
   if (!state) {
     const result = getState()
     state = result.state
@@ -183,8 +188,8 @@ export function translateKey(
   if (variables && "count" in variables && typeof variables.count === "number") {
     result = getPluralForm(translationValue, variables.count)
   } else if (typeof translationValue === "object") {
-    // If we have an object but no count, default to 'other' or first available form
-    result = translationValue.other || translationValue.one || translationValue.zero || key
+    // If we have an object but no count, return the object
+    return result
   }
 
   // Now substitute variables in the result
@@ -274,7 +279,7 @@ export function localizeValue(
   value: Date | number,
   format?: string | Record<string, any>,
   state?: VueTranslateState
-): string {
+): LocalizationResult {
   if (!state) {
     const result = getState()
     state = result.state
