@@ -1,4 +1,5 @@
 import { createUnplugin } from "unplugin"
+import MagicString from "magic-string"
 import yaml from "yaml"
 
 /**
@@ -28,7 +29,10 @@ export const unplugin = createUnplugin((options: VueTranslateOptions = {}) => {
     transform(code: string, id: string) {
       // Skip already transformed code
       if (code.includes("export default") || code.trim().startsWith("export ")) {
-        return code
+        return {
+          code,
+          map: null,
+        }
       }
 
       const rawContent = code.trim()
@@ -55,13 +59,20 @@ export const unplugin = createUnplugin((options: VueTranslateOptions = {}) => {
       }
 
       // Generate code that assigns the parsed content to the component
-      return `
+      const transformedCode = `
         export default function (Component) {
           const target = Component.options || Component;
 
           target.vueTranslate = ${JSON.stringify(parsedContent)};
         }
       `
+
+      const s = new MagicString(transformedCode)
+
+      return {
+        code: s.toString(),
+        map: s.generateMap(),
+      }
     },
   }
 })
