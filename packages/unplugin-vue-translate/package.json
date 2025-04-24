@@ -1,6 +1,6 @@
 {
   "name": "@hakunajs/unplugin-vue-translate",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Internationalization plugin for Vue.js that supports SFC i18n blocks",
   "keywords": [
     "vue",
