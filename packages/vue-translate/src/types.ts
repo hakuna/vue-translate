@@ -26,6 +26,11 @@ export interface LocaleFormats {
 }
 
 /**
+ * LocaleFormats for locales
+ */
+export type LocaleWithFormats = Record<string, LocaleFormats>
+
+/**
  * Options for creating a Vue Translate instance
  */
 export interface VueTranslateOptions {

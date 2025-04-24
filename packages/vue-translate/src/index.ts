@@ -1,7 +1,13 @@
 import { ref } from "vue"
 import { useTranslate } from "./composable"
 import { translateKey, localizeValue } from "./context"
-import type { VueTranslateOptions, VueTranslateInstance, VueTranslateState } from "./types"
+import type {
+  VueTranslateOptions,
+  VueTranslateInstance,
+  VueTranslateState,
+  LocaleFormats,
+  LocaleWithFormats,
+} from "./types"
 import "./types/custom_properties"
 
 // Symbol used as a key for providing/injecting the vue-translate state
@@ -57,4 +63,4 @@ export function createVueTranslate(options: VueTranslateOptions): VueTranslateIn
 }
 
 export { useTranslate }
-export type { VueTranslateOptions, VueTranslateInstance }
+export type { VueTranslateOptions, VueTranslateInstance, LocaleFormats, LocaleWithFormats }
