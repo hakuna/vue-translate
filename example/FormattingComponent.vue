@@ -12,7 +12,9 @@ const price = ref(1234.56)
 
 // Functions to update the examples
 function updateDate() {
-  currentDate.value = new Date()
+  let start = new Date(2020, 0, 1)
+  let end = new Date()
+  currentDate.value = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
 }
 
 function updatePrice() {
@@ -40,6 +42,7 @@ function updatePrice() {
           <p class="result">{{ $l(currentDate) }}</p>
         </div>
       </div>
+      <button @click="updateDate" class="update-button">{{ t(".actions.update_date") }}</button>
     </div>
 
     <div class="example-section">
@@ -61,7 +64,6 @@ function updatePrice() {
           <p class="result">{{ l(currentDate, "long") }}</p>
         </div>
       </div>
-      <button @click="updateDate" class="update-button">{{ t(".actions.update_date") }}</button>
     </div>
 
     <div class="example-section">
@@ -118,19 +120,6 @@ function updatePrice() {
           <p class="result">{{ l(price, "non_existent_format") }}</p>
         </div>
       </div>
-    </div>
-
-    <div class="example-section">
-      <h3>{{ t(".sections.global_access") }}</h3>
-      <CodeBlock
-        :code="`// Component-local vs global translations\n// Component-local (with leading dot):\n<p>{{ t('.current_locale') }}: {{ locale }}</p>\n\n// Global (without leading dot):\n<p>App name: {{ t('app_name') }}</p>`"
-      />
-      <p>
-        {{ t(".current_locale") }}: <span class="highlight">{{ locale }}</span>
-      </p>
-      <p>
-        {{ t(".global_message") }}: <span class="highlight">{{ t("app_name") }}</span>
-      </p>
     </div>
   </div>
 </template>
