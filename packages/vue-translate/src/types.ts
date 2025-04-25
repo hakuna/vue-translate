@@ -119,6 +119,11 @@ export interface VueTranslateState {
 }
 
 /**
+ * Translation array result - for arrays or complex objects
+ */
+export type TranslationArray = any[] | object
+
+/**
  * Vue Translate instance
  */
 export interface VueTranslateInstance {
@@ -134,7 +139,16 @@ export interface VueTranslateInstance {
    * @param variables Optional variables to substitute
    * @returns Translated string
    */
-  translate: (key: string, variables?: Record<string, any>) => TranslationResult
+  translate: (key: string, variables?: Record<string, any>) => string
+
+  /**
+   * Translate a key that returns an array or object
+   *
+   * @param key Translation key pointing to an array or object
+   * @param variables Optional variables to substitute
+   * @returns Translated array or object
+   */
+  translateArray: (key: string, variables?: Record<string, any>) => TranslationArray
 
   /**
    * Localize (format) a date or number
@@ -143,15 +157,5 @@ export interface VueTranslateInstance {
    * @param format Optional format name or options
    * @returns Formatted string
    */
-  localize: (value: Date | number, format?: string | Record<string, any>) => LocalizationResult
+  localize: (value: Date | number, format?: string | Record<string, any>) => string
 }
-
-/**
- * Translation result
- */
-export type TranslationResult = string | object
-
-/**
- * Localization result
- */
-export type LocalizationResult = string

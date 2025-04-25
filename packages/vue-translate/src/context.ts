@@ -5,12 +5,7 @@ import { formatDate } from "./util/formatDate"
 import { formatNumber } from "./util/formatNumber"
 import { getPluralForm } from "./util/pluralForms"
 import { substituteVariables } from "./util/substituteVariables"
-import type {
-  VueTranslateState,
-  LocaleFormats,
-  TranslationResult,
-  LocalizationResult,
-} from "./types"
+import type { VueTranslateState, LocaleFormats, TranslationArray } from "./types"
 
 /**
  * Gets state from the current component instance
@@ -94,20 +89,15 @@ export function createSetLocale(state: VueTranslateState) {
 }
 
 /**
- * Translates a key using the current state
+ * Common translation lookup logic - returns the raw translation value
+ * without string conversion or variable substitution
  *
  * @param key The translation key
- * @param variables Optional variables to substitute
  * @param component The component instance (for local translations)
  * @param state The global translation state
- * @returns Translated string
+ * @returns Raw translation value or null if not found
  */
-export function translateKey(
-  key: string,
-  variables?: Record<string, any>,
-  component?: any,
-  state?: VueTranslateState
-): TranslationResult {
+function findTranslationValue(key: string, component?: any, state?: VueTranslateState): any {
   if (!state) {
     const result = getState()
     state = result.state
@@ -180,6 +170,30 @@ export function translateKey(
         console.warn("[vue-translate] Missing global translation for key:", `${locale}.${key}`)
       }
     }
+  }
+
+  return translationValue
+}
+
+/**
+ * Translates a key using the current state
+ *
+ * @param key The translation key
+ * @param variables Optional variables to substitute
+ * @param component The component instance (for local translations)
+ * @param state The global translation state
+ * @returns Translated string
+ */
+export function translateKey(
+  key: string,
+  variables?: Record<string, any>,
+  component?: any,
+  state?: VueTranslateState
+): string {
+  const translationValue = findTranslationValue(key, component, state)
+
+  // If no translation found
+  if (translationValue === null) {
     return key
   }
 
@@ -188,12 +202,42 @@ export function translateKey(
   if (variables && "count" in variables && typeof variables.count === "number") {
     result = getPluralForm(translationValue, variables.count)
   } else if (typeof translationValue === "object") {
-    // If we have an object but no count, return the object
-    return result
+    // If we have an object but no count, default to 'other' or first available form
+    result = translationValue.other || translationValue.one || translationValue.zero || key
   }
 
   // Now substitute variables in the result
   return substituteVariables(String(result), variables)
+}
+
+/**
+ * Translates a key that returns an array or object
+ *
+ * @param key The translation key
+ * @param variables Optional variables to substitute
+ * @param component The component instance (for local translations)
+ * @param state The global translation state
+ * @returns Translated array or object
+ */
+export function translateKeyAsArray(
+  key: string,
+  component?: any,
+  state?: VueTranslateState
+): TranslationArray {
+  const translationValue = findTranslationValue(key, component, state)
+
+  // If no translation found or it's not an object
+  if (translationValue === null) {
+    return {} // Return empty object as fallback
+  }
+
+  // If it's not an object or array, wrap it in an object
+  if (typeof translationValue !== "object") {
+    return { value: String(translationValue) }
+  }
+
+  // Return the object/array directly
+  return translationValue
 }
 
 /**
@@ -279,7 +323,7 @@ export function localizeValue(
   value: Date | number,
   format?: string | Record<string, any>,
   state?: VueTranslateState
-): LocalizationResult {
+): string {
   if (!state) {
     const result = getState()
     state = result.state

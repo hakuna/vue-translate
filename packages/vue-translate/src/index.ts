@@ -1,14 +1,12 @@
 import { ref } from "vue"
 import { useTranslate } from "./composable"
-import { translateKey, localizeValue } from "./context"
+import { translateKey, translateKeyAsArray, localizeValue } from "./context"
 import type {
   VueTranslateOptions,
   VueTranslateInstance,
   VueTranslateState,
   LocaleFormats,
   LocaleWithFormats,
-  TranslationResult,
-  LocalizationResult,
 } from "./types"
 import "./types/custom_properties"
 
@@ -34,12 +32,17 @@ export function createVueTranslate(options: VueTranslateOptions): VueTranslateIn
   // Return the instance with enhanced functionality
   return {
     // Format a key with variables
-    translate: (key: string, variables?: Record<string, any>): TranslationResult => {
+    translate: (key: string, variables?: Record<string, any>): string => {
       return translateKey(key, variables, null, state)
     },
 
+    // Format a key with variables, returns an array or object
+    translateArray: (key: string) => {
+      return translateKeyAsArray(key, null, state)
+    },
+
     // Format a date/number with options
-    localize: (value: Date | number, format?: string | Record<string, any>): LocalizationResult => {
+    localize: (value: Date | number, format?: string | Record<string, any>): string => {
       return localizeValue(value, format, state)
     },
 
@@ -52,6 +55,11 @@ export function createVueTranslate(options: VueTranslateOptions): VueTranslateIn
       app.config.globalProperties.$t = function (key: string, variables?: Record<string, any>) {
         // Get component instance context from 'this'
         return translateKey(key, variables, this, state)
+      }
+
+      app.config.globalProperties.$ta = function (key: string) {
+        // Get component instance context from 'this'
+        return translateKeyAsArray(key, this, state)
       }
 
       app.config.globalProperties.$l = function (

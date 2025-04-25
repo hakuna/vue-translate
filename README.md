@@ -204,7 +204,7 @@ en:
 
 ### Array Translations
 
-Array-like translations are returned as-is when accessed without a count parameter, allowing you to iterate through them directly in your templates.
+Array-like translations can be fetched with the `ta` helper, allowing you to iterate through them directly in your templates.
 
 ```vue
 <script setup lang="ts">
@@ -217,21 +217,21 @@ interface Fruit {
   color: string
 }
 
-const { t } = useTranslate()
+const { ta } = useTranslate()
 
 // For script usage with proper typing using type assertions
-const colors = t('.colors') as string[]
-const fruits = t('.fruits') as Fruit[]
+const colors = ta('.colors') as string[]
+const fruits = ta('.fruits') as Fruit[]
 </script>
 
 <template>
   <!-- Iterate through simple array -->
   <ul>
-    <li v-for="color in t('.colors') as string[]" :key="color">{{ color }}</li>
+    <li v-for="color in ta('.colors') as string[]" :key="color">{{ color }}</li>
   </ul>
 
   <!-- Iterate through array of objects with type assertion -->
-  <div v-for="fruit in t('.fruits') as Fruit[]" :key="fruit.name">
+  <div v-for="fruit in ta('.fruits') as Fruit[]" :key="fruit.name">
     {{ fruit.name }} - {{ fruit.color }}
   </div>
 </template>
